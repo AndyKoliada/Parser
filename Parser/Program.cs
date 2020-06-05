@@ -18,6 +18,8 @@ namespace Parser
     {
         static void Main(string[] args)
         {
+            Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+            Encoding encoding = Encoding.GetEncoding("windows-1251");
             GetHtmlAsync();
 
             Console.ReadLine();
@@ -34,11 +36,20 @@ namespace Parser
 
             htmlDocument.LoadHtml(html);
 
-            Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
-            Encoding encoding = Encoding.GetEncoding("windows-1251");
 
 
-            Console.WriteLine(html.Result);
+            var messagesListHtml = htmlDocument.DocumentNode.Descendants("td")
+                .Where(node => node.GetAttributeValue("class", "")
+                .Equals("newscol hideprint")).ToList();
+
+            var messagesList = messagesListHtml[0].Descendants("a");
+
+            foreach(var m in messagesList)
+            {
+                Console.WriteLine(m.FirstChild);
+            }
+
+            
         }
     }
 }
