@@ -10,7 +10,8 @@ namespace Parser
     class Program
     {
         static void Main(string[] args)
-        {
+        {   
+
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
             Encoding encoding = Encoding.GetEncoding("windows-1251");
             GetHtmlAsync();
@@ -31,6 +32,7 @@ namespace Parser
 
 
 
+
             var messagesListHtml = htmlDocument.DocumentNode.Descendants("td")
                 .Where(node => node.GetAttributeValue("class", "")
                 .Equals("newscol hideprint")).ToList();
@@ -39,18 +41,34 @@ namespace Parser
 
             var rawMessagesList = messagesListHtml[0].Descendants("#text").ToList();
 
-            int messageIndex = 4;
+            var rawHlinkList = messagesListHtml[0].Descendants("href").ToList();
 
-            var recentMessage = rawMessagesList[messageIndex];
+            //var rawTimecodeList = messagesListHtml[0].Descendants("#text").ToList();
 
-            string m = HttpUtility.HtmlDecode(recentMessage.InnerText.TrimStart(':',' ').Replace(" &nbsp;", " "));
+            //var messageList = ;
+
+            int messageIndex = 0;
+
+            //var recentMessage = rawMessagesList[messageIndex];
+
+            //string m = HttpUtility.HtmlDecode(recentMessage.InnerText.TrimStart(':',' ').Replace(" &nbsp;", " "));
 
 
-           
+           foreach(var i in rawMessagesList)
+            {
+                //string x = HttpUtility.HtmlDecode(i.InnerText.TrimStart(':', ' ').Replace(" &nbsp;", " "));
+                if(i.InnerText.StartsWith(':'))
+                {
+                    string x = HttpUtility.HtmlDecode(i.InnerText.TrimStart(':', ' ').Replace(" &nbsp;", " ").Replace("&#133",""));
+                    Console.WriteLine(x);
+                    Console.WriteLine();
+                }
+            }
+
             
 
-                Console.WriteLine(m);
-                Console.WriteLine();
+                //Console.WriteLine(m);
+                //Console.WriteLine();
             
             
             //Console.WriteLine(m);
@@ -58,6 +76,22 @@ namespace Parser
 
         }
 
-        //private static messageFormat()
+
+        #region TIMER
+        //public void Test()
+        //{
+        //    Timer t = new Timer(5000);
+        //    t.AutoReset = true;
+        //    t.Elapsed += new ElapsedEventHandler(OnTimedEvent);
+        //    t.Start();
+        //}
+
+        //private async void OnTimedEvent(Object source, ElapsedEventArgs e)
+        //{
+
+        //}
+        #endregion
+
+
     }
 }
