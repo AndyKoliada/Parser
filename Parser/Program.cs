@@ -2,6 +2,7 @@
 using AngleSharp.Html.Dom;
 using AngleSharp.Html.Parser;
 using AngleSharp.Text;
+using HtmlAgilityPack;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -17,16 +18,27 @@ namespace Parser
     {
         static void Main(string[] args)
         {
+            GetHtmlAsync();
+
+            Console.ReadLine();
+        }
+
+        private static async void GetHtmlAsync()
+        {
             string url = "https://dumskaya.net/user/neravnoduschnyj/";
 
             var httpClient = new HttpClient();
-            var html = httpClient.GetStringAsync(url);
+            var html = await httpClient.GetStringAsync(url);
+
+            var htmlDocument = new HtmlDocument();
+
+            htmlDocument.LoadHtml(html);
 
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
             Encoding encoding = Encoding.GetEncoding("windows-1251");
 
+
             Console.WriteLine(html.Result);
-            Console.ReadLine();
         }
     }
 }
