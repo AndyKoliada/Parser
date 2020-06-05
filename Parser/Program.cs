@@ -44,10 +44,10 @@ namespace Parser
 
             var messagesList = messagesListHtml[0].Descendants("a");
 
-            foreach(var m in messagesList)
-            {
-                Console.WriteLine(m.FirstChild);
-            }
+            //foreach(var m in messagesList)
+            //{
+            //    Console.WriteLine(m.FirstChild);
+            //}
 
             
         }
