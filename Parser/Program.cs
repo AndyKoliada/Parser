@@ -1,19 +1,12 @@
-﻿using AngleSharp.Dom;
-using AngleSharp.Html.Dom;
-using AngleSharp.Html.Parser;
-using AngleSharp.Text;
-using HtmlAgilityPack;
+﻿using HtmlAgilityPack;
 using System;
-using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
-using System.Threading;
-using System.Windows;
+using System.Web;
 
 namespace Parser
-{ 
+{
     class Program
     {
         static void Main(string[] args)
@@ -42,14 +35,29 @@ namespace Parser
                 .Where(node => node.GetAttributeValue("class", "")
                 .Equals("newscol hideprint")).ToList();
 
-            var messagesList = messagesListHtml[0].Descendants("a");
 
-            //foreach(var m in messagesList)
-            //{
-            //    Console.WriteLine(m.FirstChild);
-            //}
 
+            var rawMessagesList = messagesListHtml[0].Descendants("#text").ToList();
+
+            int messageIndex = 4;
+
+            var recentMessage = rawMessagesList[messageIndex];
+
+            string m = HttpUtility.HtmlDecode(recentMessage.InnerText.TrimStart(':',' ').Replace(" &nbsp;", " "));
+
+
+           
             
+
+                Console.WriteLine(m);
+                Console.WriteLine();
+            
+            
+            //Console.WriteLine(m);
+
+
         }
+
+        //private static messageFormat()
     }
 }
