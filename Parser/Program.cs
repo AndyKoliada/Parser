@@ -26,7 +26,7 @@ namespace Parser
 
             #region TELEGRAMBOT
 
-            botClient = new TelegramBotClient("YOUR_ACCESS_TOKEN_HERE");
+            botClient = new TelegramBotClient("1139402041:AAHbmIdDK1XaIXVhilFOgNF9uiAkHmj667c");
 
             var me = botClient.GetMeAsync().Result;
             Console.WriteLine(
