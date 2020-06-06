@@ -3,20 +3,57 @@ using System;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
+using System.Threading;
 using System.Web;
+using Telegram.Bot;
+using Telegram.Bot.Args;
 
 namespace Parser
 {
     class Program
     {
+        static ITelegramBotClient botClient;
+
         static void Main(string[] args)
-        {   
+        {
 
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
             Encoding encoding = Encoding.GetEncoding("windows-1251");
             GetHtmlAsync();
 
+            //static ITelegramBotClient botClient;
+
+
+            #region TELEGRAMBOT
+
+            botClient = new TelegramBotClient("YOUR_ACCESS_TOKEN_HERE");
+
+            var me = botClient.GetMeAsync().Result;
+            Console.WriteLine(
+              $"Hello, World! I am user {me.Id} and my name is {me.FirstName}."
+            );
+
+            //botClient.OnMessage += Bot_OnMessage;
+            botClient.StartReceiving();
+            Thread.Sleep(int.MaxValue);
+
+
             Console.ReadLine();
+        }
+
+                #endregion
+
+        static async void Bot_OnMessage(object sender, MessageEventArgs e)
+        {
+            if (e.Message.Text != null)
+            {
+                Console.WriteLine($"Received a text message in chat {e.Message.Chat.Id}.");
+
+                await botClient.SendTextMessageAsync(
+                  chatId: e.Message.Chat,
+                  text: "You said:\n" + e.Message.Text
+                );
+            }
         }
 
         private static async void GetHtmlAsync()
@@ -47,7 +84,7 @@ namespace Parser
 
             //var messageList = ;
 
-            int messageIndex = 0;
+            //int messageIndex = 0;
 
             //var recentMessage = rawMessagesList[messageIndex];
 
