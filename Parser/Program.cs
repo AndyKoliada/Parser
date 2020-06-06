@@ -33,7 +33,7 @@ namespace Parser
               $"Hello, World! I am user {me.Id} and my name is {me.FirstName}."
             );
 
-            //botClient.OnMessage += Bot_OnMessage;
+            botClient.OnMessage += Bot_OnMessage;
             botClient.StartReceiving();
             Thread.Sleep(int.MaxValue);
 
