@@ -16,7 +16,7 @@ namespace Parser
     class Program
     {
         //static ITelegramBotClient botClient;
-        
+        static string recentMessage = "";
 
         static void Main(string[] args)
         {
@@ -24,20 +24,20 @@ namespace Parser
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
             Encoding encoding = Encoding.GetEncoding("windows-1251");
 
-            System.Timers.Timer t = new System.Timers.Timer(5000);
-            t.AutoReset = true;
-            t.Elapsed += new ElapsedEventHandler(OnTimedEvent);
-            t.Start();
+            //System.Timers.Timer t = new System.Timers.Timer(1);
+            //t.AutoReset = true;
+            //t.Elapsed += new ElapsedEventHandler(OnTimedEvent);
+            //t.Start();
 
-            async void OnTimedEvent(Object source, ElapsedEventArgs e)
-            {
-                await GetHtmlAsync();
-                await SendToBotAsync();
-            }
+            //async void OnTimedEvent(Object source, ElapsedEventArgs e)
+            //{
+            //    await GetHtmlAsync();
+            //    await SendToBotAsync();
+            //}
 
 
-            //GetHtmlAsync();
-            //SendToBotAsync();
+            await GetHtmlAsync();
+            SendToBotAsync();
 
 
             //#region TELEGRAMBOT
@@ -58,7 +58,7 @@ namespace Parser
         private static async Task SendToBotAsync()
         {
 
-            string recentMessage = "";
+            //string recentMessage = "";
 
 
             var bot = new TelegramBotClient("1139402041:AAHbmIdDK1XaIXVhilFOgNF9uiAkHmj667c");
@@ -114,7 +114,7 @@ namespace Parser
 
             var rawMessagesList = messagesListHtml[0].Descendants("#text").ToList();
 
-            var rawHlinkList = messagesListHtml[0].Descendants("href").ToList();
+            //var rawHlinkList = messagesListHtml[0].Descendants("href").ToList();
 
             //var rawTimecodeList = messagesListHtml[0].Descendants("#text").ToList();
 
@@ -133,10 +133,14 @@ namespace Parser
                 if(i.InnerText.StartsWith(':'))
                 {
                     string x = HttpUtility.HtmlDecode(i.InnerText.TrimStart(':', ' ').Replace(" &nbsp;", " ").Replace("&#133","").Replace(">", "\"").Replace("<", "\""));
+
+                    recentMessage = x;
                     Console.WriteLine(x);
                     Console.WriteLine();
                 }
             }
+
+
 
             
 
