@@ -9,18 +9,18 @@ namespace Parser
         public static void Main()
         {
             //MainAsync().GetAwaiter().GetResult();
-            while (true)
-            {
-                Timer t = new Timer(60000);
-                t.AutoReset = true;
-                t.Elapsed += new ElapsedEventHandler(OnTimedEvent);
-                t.Start();
 
-                async void OnTimedEvent(Object source, ElapsedEventArgs e)
-                {
-                    await Message.GetHtmlAsync();
-                }
-            }
+            //Timer t = new Timer(60000);
+            //t.AutoReset = true;
+            //t.Elapsed += new ElapsedEventHandler(OnTimedEvent);
+            //t.Start();
+
+            //async void OnTimedEvent(Object source, ElapsedEventArgs e)
+            //{
+            //    await Message.GetHtmlAsync();
+            //}
+
+            CallMethodEvery5Seconds.Run();
         }
 
         //async void OnTimedEvent(Object source, ElapsedEventArgs e)
