@@ -1,13 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 
 namespace Parser
 {
-    class CallMethodEvery5Seconds
+    class CallTimer
     {
         internal static void Run()
         {
@@ -21,8 +17,8 @@ namespace Parser
 
         private async static void TimerMethod(object o)
         {
-            //Console.WriteLine(
-            //    "Running: " + DateTime.Now);
+            Console.WriteLine(
+                "Running: " + DateTime.Now);
             await Message.GetHtmlAsync();
         }
     }
