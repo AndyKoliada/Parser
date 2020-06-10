@@ -13,8 +13,8 @@ namespace Parser
 
         public static async Task SendToBotAsync()
         {
-            var bot = new TelegramBotClient("1139402041:AAHbmIdDK1XaIXVhilFOgNF9uiAkHmj667c");
-            var t = await bot.SendTextMessageAsync("-455430398", RecentMessage);
+            var bot = new TelegramBotClient("YOUR_API_KEY");
+            var t = await bot.SendTextMessageAsync("YOUR_CHAT_ID", RecentMessage);
         }
 
     }
