@@ -1,3 +1,5 @@
 # Parser
-        //https://api.telegram.org/bot1139402041:AAHbmIdDK1XaIXVhilFOgNF9uiAkHmj667c/getUpdates
-        // GET chat ID
+
+Parsing web site continiously by timer and sends a message to telegram bot if parsed node was updated.
+
+To work with Telegram you will need an API key to your bot, and chat ID.
