@@ -11,15 +11,20 @@ namespace Parser
 {
     class Message
     {
-        public static async Task GetHtmlAsync()
+        static string url = "https://dumskaya.net/user/neravnoduschnyj/";
+
+        public static async Task GetHtmlInitAsync()
         {
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
             Encoding encoding = Encoding.GetEncoding("windows-1251");
 
-            string url = "https://dumskaya.net/user/neravnoduschnyj/";
-
+        }        
+        
+        public static async Task MessageManagerAsync()
+        {
             var httpClient = new HttpClient();
-            var html = await httpClient.GetStringAsync(url);
+
+            var html = await httpClient.GetStringAsync(Message.url);
 
             var htmlDocument = new HtmlDocument();
 
@@ -33,7 +38,7 @@ namespace Parser
 
             Queue<string> MessagesList = new Queue<string>();
 
-            for (int i = 0; i < rawMessagesList.Count-1; i++)
+            for (int i = 0; i < rawMessagesList.Count - 1; i++)
             {
                 if (rawMessagesList[i].InnerLength != 0 && rawMessagesList[i].InnerText.StartsWith(':'))
                 {
@@ -49,17 +54,13 @@ namespace Parser
             }
 
             Telegram.RecentMessage = MessagesList.Dequeue();
-            if(Telegram.RecentMessage != Telegram.PreviousMessage)
+            if (Telegram.RecentMessage != Telegram.PreviousMessage)
             {
                 await Telegram.SendToBotAsync();
                 Console.WriteLine(Telegram.RecentMessage);
                 Telegram.PreviousMessage = Telegram.RecentMessage;
             }
-
-
         }
-
-        
 
     }
 }

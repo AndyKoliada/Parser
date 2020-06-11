@@ -19,7 +19,7 @@ namespace Parser
         {
             Console.WriteLine(
                 "Running: " + DateTime.Now);
-            await Message.GetHtmlAsync();
+            await Message.MessageManagerAsync();
         }
     }
 }
